@@ -9,12 +9,13 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="nav">
+<header class="nav" id="site-nav">
   <a class="brand" href="#top">
     <img src="assets/icon-512.png" alt="GrabAll logo" class="brand-logo">
     <span>GrabAll</span>
   </a>
-  <nav>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+  <nav id="nav-links">
     <a href="#download">Download</a>
     <a href="#features">Features</a>
     <a href="#setup">Setup</a>

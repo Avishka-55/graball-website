@@ -55,3 +55,24 @@
     })
     .catch(function () { /* keep the hardcoded fallback values */ });
 })();
+
+// Mobile nav toggle: hamburger button opens/closes the link menu,
+// and tapping a link closes it again.
+(function () {
+  var toggle = document.getElementById('nav-toggle');
+  var header = document.getElementById('site-nav');
+  if (!toggle || !header) return;
+  toggle.addEventListener('click', function () {
+    var open = header.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  var links = header.querySelectorAll('#nav-links a');
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function () {
+      header.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+    });
+  }
+})();
