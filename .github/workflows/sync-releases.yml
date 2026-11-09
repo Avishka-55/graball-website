@@ -1,0 +1,179 @@
+# Sync releases from the private GrabAll app repos
+#
+# What it does: every 6 hours (and whenever run by hand) it checks the latest
+# release of the Android app (Avishka-55/grab-all) and the PC app
+# (Aviz-66/grab-all-pc). When a new version appears it downloads ONLY the
+# built release files (APK, zips, extension) and re-publishes them as a
+# release in THIS public repo, then updates latest.json so the website's
+# download buttons always point at the newest version.
+#
+# What it never does: it never touches source code. No .go, .kt, .java or
+# other source file is ever copied — only the compiled release assets.
+#
+# SECURITY — read this before enabling:
+# The two app repos are private, so this workflow needs a token that can read
+# them. That token is NOT in this repo and must never be committed here.
+# It lives only as the Actions secret SYNC_TOKEN (Settings > Secrets and
+# variables > Actions > New repository secret).
+#
+# How to create it (repo owner does this once, in the browser):
+#   1. GitHub Settings > Developer settings > Personal access tokens >
+#      Fine-grained tokens > Generate new token.
+#   2. Resource owner: Avishka-55. Give it a name like "graball-website-sync".
+#   3. Repository access > Only select repositories: pick Avishka-55/grab-all
+#      AND Aviz-66/grab-all-pc (Avishka-55 is a collaborator there, so it shows up).
+#   4. Permissions > Repository permissions > Contents: Read-only. Nothing else.
+#   5. Copy the token and save it as the SYNC_TOKEN secret in this repo.
+# The token can be revoked at any time from the same page. If the secret is
+# missing, this workflow just logs a notice and exits cleanly — nothing breaks.
+#
+# Until SYNC_TOKEN is set, mirroring is done by hand (see README.md).
+
+name: Sync releases
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website repo
+        uses: actions/checkout@v4
+
+      - name: Check for sync token
+        id: token
+        run: |
+          if [ -z "${{ secrets.SYNC_TOKEN }}" ]; then
+            echo "SYNC_TOKEN is not configured yet — skipping. See .github/workflows/sync-releases.yml for setup steps."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Mirror new releases
+        if: steps.token.outputs.configured == 'true'
+        env:
+          UPSTREAM_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          set -e
+          python3 - <<'PYEOF'
+          import json, os, subprocess, sys
+
+          def run(cmd, env=None):
+              e = dict(os.environ)
+              if env:
+                  e.update(env)
+              r = subprocess.run(cmd, shell=True, env=e, capture_output=True, text=True)
+              if r.returncode != 0:
+                  print(r.stdout)
+                  print(r.stderr, file=sys.stderr)
+                  sys.exit(1)
+              return r.stdout.strip()
+
+          with open('latest.json') as f:
+              latest = json.load(f)
+
+          upstream = os.environ['UPSTREAM_TOKEN']
+          changed = False
+
+          # ---- Android: Avishka-55/grab-all ----
+          atag = run('gh release view --repo Avishka-55/grab-all --json tagName -q .tagName',
+                     {'GH_TOKEN': upstream})
+          if atag != 'v' + latest['android']['version']:
+              print(f'New Android release: {atag}')
+              os.makedirs('/tmp/mirror/android', exist_ok=True)
+              run(f'gh release download {atag} --repo Avishka-55/grab-all --pattern "*.apk" --dir /tmp/mirror/android',
+                  {'GH_TOKEN': upstream})
+              apk = '/tmp/mirror/android/app-release.apk'
+              name = f'GrabAll-Android-{atag}.apk'
+              os.rename(apk, f'/tmp/mirror/android/{name}')
+              size = os.path.getsize(f'/tmp/mirror/android/{name}')
+              sha = run(f'sha256sum /tmp/mirror/android/{name}').split()[0]
+              pub = run(f'gh release view {atag} --repo Avishka-55/grab-all --json publishedAt -q .publishedAt',
+                        {'GH_TOKEN': upstream})
+              run(f'gh release create android-{atag} --repo Avishka-55/graball-website '
+                  f'--title "GrabAll Android {atag}" '
+                  f'--notes "GrabAll for Android {atag} (mirrored from the private Avishka-55/grab-all release). Signed APK - install by sideloading. Source code is not included." '
+                  f'/tmp/mirror/android/{name}')
+              latest['android'] = {
+                  'version': atag.lstrip('v'), 'tag': f'android-{atag}',
+                  'published_at': pub, 'file': name, 'size_bytes': size, 'sha256': sha,
+                  'url': f'https://github.com/Avishka-55/graball-website/releases/download/android-{atag}/{name}',
+              }
+              changed = True
+          else:
+              print(f'Android up to date ({atag})')
+
+          # ---- PC: Aviz-66/grab-all-pc ----
+          ptag = run('gh release view --repo Aviz-66/grab-all-pc --json tagName -q .tagName',
+                     {'GH_TOKEN': upstream})
+          if ptag != 'v' + latest['pc']['version']:
+              print(f'New PC release: {ptag}')
+              os.makedirs('/tmp/mirror/pc', exist_ok=True)
+              run(f'gh release download {ptag} --repo Aviz-66/grab-all-pc --dir /tmp/mirror/pc',
+                  {'GH_TOKEN': upstream})
+              files = sorted(os.listdir('/tmp/mirror/pc'))
+              file_args = ' '.join(f'/tmp/mirror/pc/{f}' for f in files)
+              run(f'gh release create pc-{ptag} --repo Avishka-55/graball-website '
+                  f'--title "GrabAll PC {ptag}" '
+                  f'--notes "GrabAll Download Manager for Windows, Linux and macOS {ptag} (mirrored from the private Aviz-66/grab-all-pc release). Includes the browser extension zip. Source code is not included." '
+                  f'{file_args}')
+              pub = run(f'gh release view {ptag} --repo Aviz-66/grab-all-pc --json publishedAt -q .publishedAt',
+                        {'GH_TOKEN': upstream})
+              keymap = {
+                  'graball-windows-amd64.zip': 'windows',
+                  'graball-linux-amd64.tar.gz': 'linux_amd64',
+                  'graball-linux-arm64.tar.gz': 'linux_arm64',
+                  'graball-darwin-amd64.tar.gz': 'macos_amd64',
+                  'graball-darwin-arm64.tar.gz': 'macos_arm64',
+                  'graball-extension.zip': 'extension',
+              }
+              downloads = {}
+              for fname in files:
+                  key = keymap.get(fname)
+                  if not key:
+                      continue
+                  path = f'/tmp/mirror/pc/{fname}'
+                  downloads[key] = {
+                      'file': fname,
+                      'size_bytes': os.path.getsize(path),
+                      'sha256': run(f'sha256sum {path}').split()[0],
+                      'url': f'https://github.com/Avishka-55/graball-website/releases/download/pc-{ptag}/{fname}',
+                  }
+              latest['pc'] = {
+                  'version': ptag.lstrip('v'), 'tag': f'pc-{ptag}',
+                  'published_at': pub, 'downloads': downloads,
+              }
+              changed = True
+          else:
+              print(f'PC up to date ({ptag})')
+
+          if changed:
+              from datetime import datetime, timezone
+              latest['updated_at'] = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
+              with open('latest.json', 'w') as f:
+                  json.dump(latest, f, indent=2, sort_keys=True)
+                  f.write('\n')
+              print('latest.json updated')
+          else:
+              print('Nothing new to mirror')
+          PYEOF
+
+      - name: Commit updated latest.json
+        if: steps.token.outputs.configured == 'true'
+        run: |
+          if ! git diff --quiet latest.json; then
+            git config user.name "Boba"
+            git config user.email "boba@local"
+            git add latest.json
+            git commit -m "Sync latest.json with new GrabAll releases"
+            git push
+          else
+            echo "latest.json unchanged"
+          fi
