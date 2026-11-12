@@ -60,6 +60,11 @@ jobs:
         if: steps.token.outputs.configured == 'true'
         env:
           UPSTREAM_TOKEN: ${{ secrets.SYNC_TOKEN }}
+          # The mirror-release creates below rely on this: gh needs a
+          # token in its environment, and the runner does not provide
+          # one on its own (v0.7.5 sync failed on exactly this). The
+          # upstream reads override it with SYNC_TOKEN per call.
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -e
           python3 - <<'PYEOF'
