@@ -12,44 +12,44 @@
     "downloads": {
       "extension": {
         "file": "graball-extension.zip",
-        "sha256": "24d2a0e78821e60f2f52ab699e5d01e9baf192e3fac29762023e5a2f39b2879f",
-        "size_bytes": 42964,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.6/graball-extension.zip"
+        "sha256": "28de189171e952b3cc63e4a818ff9498ff672d20170bbb20cb29adaff6ed650b",
+        "size_bytes": 43305,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.7/graball-extension.zip"
       },
       "linux_amd64": {
         "file": "graball-linux-amd64.tar.gz",
-        "sha256": "ec846cc5d0b6302b68c806494cb07f40f629eecfb4094dc176fdf1ca218757ca",
-        "size_bytes": 2969339,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.6/graball-linux-amd64.tar.gz"
+        "sha256": "ddc0404f92794aaebb3ed1e7680d936206fe07808eee1b436b7fb87d4096bff5",
+        "size_bytes": 2981321,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.7/graball-linux-amd64.tar.gz"
       },
       "linux_arm64": {
         "file": "graball-linux-arm64.tar.gz",
-        "sha256": "ebaf800e49dc2c404c2340653dc43e78d5cc6fa0f613d9bead769d6a371ca854",
-        "size_bytes": 2737554,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.6/graball-linux-arm64.tar.gz"
+        "sha256": "749118b8f7bc7ceccd1381c75f9c847d7f57f898ed0982b9e4a3172965d1bbb5",
+        "size_bytes": 2746876,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.7/graball-linux-arm64.tar.gz"
       },
       "macos_amd64": {
         "file": "graball-darwin-amd64.tar.gz",
-        "sha256": "ca0a33faee020ff0bfda0e00f8291ffb860fecab33ea1aa0c3b3ec498b70ba26",
-        "size_bytes": 3012785,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.6/graball-darwin-amd64.tar.gz"
+        "sha256": "848d62d7c5058133823c3792720fad145031e133b30b442d65f96c80e13ff817",
+        "size_bytes": 3024232,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.7/graball-darwin-amd64.tar.gz"
       },
       "macos_arm64": {
         "file": "graball-darwin-arm64.tar.gz",
-        "sha256": "b69bd13f136669076b544b47221f0f8fe3be476bb35586d43365f2177b120ae8",
-        "size_bytes": 2829668,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.6/graball-darwin-arm64.tar.gz"
+        "sha256": "5af12d70f9c06b3bacd4bb9c0a424dbf374e6f4494a8f0b23c47ee0ccdc5fd9c",
+        "size_bytes": 2840613,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.7/graball-darwin-arm64.tar.gz"
       },
       "windows": {
         "file": "graball-windows-amd64.zip",
-        "sha256": "eebeba27a34ebe403a5af99bc94550267d63867421ab0be9d02cc8a4571e7e18",
-        "size_bytes": 3228318,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.6/graball-windows-amd64.zip"
+        "sha256": "29f9827177e658c1f178e5b4734205727e370e4c9e2fbf6789a54266f168c6f4",
+        "size_bytes": 3239842,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.2.7/graball-windows-amd64.zip"
       }
     },
-    "published_at": "2026-11-07T03:19:06Z",
-    "tag": "pc-v2.2.6",
-    "version": "2.2.6"
+    "published_at": "2026-11-13T12:18:20Z",
+    "tag": "pc-v2.2.7",
+    "version": "2.2.7"
   },
-  "updated_at": "2026-11-12T15:47:27Z"
+  "updated_at": "2026-11-13T19:29:06Z"
 }
