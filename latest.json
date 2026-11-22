@@ -1,12 +1,12 @@
 {
   "android": {
-    "file": "GrabAll-Android-v1.1.2.apk",
-    "published_at": "2026-11-22T11:48:21Z",
-    "sha256": "71b6302aa15fb4ca7645546dabdb025cc87c39d345ce57dcf111e3798fae65ee",
-    "size_bytes": 40876749,
-    "tag": "android-v1.1.2",
-    "url": "https://github.com/Avishka-55/graball-website/releases/download/android-v1.1.2/GrabAll-Android-v1.1.2.apk",
-    "version": "1.1.2"
+    "file": "GrabAll-Android-v1.1.3.apk",
+    "published_at": "2026-11-22T12:18:15Z",
+    "sha256": "5d19729863b43949e56b69b3f3c0d1ee8a41ceb194594766a9926efbdfbda956",
+    "size_bytes": 40883106,
+    "tag": "android-v1.1.3",
+    "url": "https://github.com/Avishka-55/graball-website/releases/download/android-v1.1.3/GrabAll-Android-v1.1.3.apk",
+    "version": "1.1.3"
   },
   "pc": {
     "downloads": {
@@ -51,5 +51,5 @@
     "tag": "pc-v2.2.8",
     "version": "2.2.8"
   },
-  "updated_at": "2026-11-22T11:49:30Z"
+  "updated_at": "2026-11-22T12:19:25Z"
 }
