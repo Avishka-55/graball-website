@@ -68,7 +68,7 @@ jobs:
         run: |
           set -e
           python3 - <<'PYEOF'
-          import json, os, subprocess, sys
+          import glob, json, os, subprocess, sys
 
           def run(cmd, env=None):
               e = dict(os.environ)
@@ -95,7 +95,10 @@ jobs:
               os.makedirs('/tmp/mirror/android', exist_ok=True)
               run(f'gh release download {atag} --repo Avishka-55/grab-all --pattern "*.apk" --dir /tmp/mirror/android',
                   {'GH_TOKEN': upstream})
-              apk = '/tmp/mirror/android/app-release.apk'
+              _apks = sorted(glob.glob('/tmp/mirror/android/*.apk'))
+              if not _apks:
+                  raise FileNotFoundError(f'no .apk downloaded for {atag}')
+              apk = _apks[0]
               name = f'GrabAll-Android-{atag}.apk'
               os.rename(apk, f'/tmp/mirror/android/{name}')
               size = os.path.getsize(f'/tmp/mirror/android/{name}')
