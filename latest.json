@@ -1,55 +1,55 @@
 {
   "android": {
-    "file": "GrabAll-Android-v1.5.10.apk",
-    "published_at": "2026-11-27T07:50:41Z",
-    "sha256": "a063390103f381e29e07a5702459ae95ea87dcbe30b59d8e9adbb24957062689",
-    "size_bytes": 41172509,
-    "tag": "android-v1.5.10",
-    "url": "https://github.com/Avishka-55/graball-website/releases/download/android-v1.5.10/GrabAll-Android-v1.5.10.apk",
-    "version": "1.5.10"
+    "file": "GrabAll-Android-v1.5.13.apk",
+    "published_at": "2026-11-27T09:22:50Z",
+    "sha256": "31ed982c3d17e811d8824b94ba0a2d6a7363a3cb273a9686e5293f75c10334e7",
+    "size_bytes": 41181299,
+    "tag": "android-v1.5.13",
+    "url": "https://github.com/Avishka-55/graball-website/releases/download/android-v1.5.13/GrabAll-Android-v1.5.13.apk",
+    "version": "1.5.13"
   },
   "pc": {
     "downloads": {
       "extension": {
         "file": "graball-extension.zip",
-        "sha256": "24e620bd5537d1d5be9e951f07d86750f4dc86233d36186f08dbc1724434d080",
-        "size_bytes": 53579,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.4.0/graball-extension.zip"
+        "sha256": "8187a647cad2781c99ca5e66802709b2fd2f27826407ba3a3b55136792a597b9",
+        "size_bytes": 44650,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.5.5/graball-extension.zip"
       },
       "linux_amd64": {
         "file": "graball-linux-amd64.tar.gz",
-        "sha256": "417de864454a0e8e3c0cbf635ff7bc0c4146ee96d303429934a32b9a89b57ccb",
-        "size_bytes": 3213772,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.4.0/graball-linux-amd64.tar.gz"
+        "sha256": "2f1cf554755461c0599d121e83f587b85957a3738317cfd37710b571a0efabb7",
+        "size_bytes": 3220826,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.5.5/graball-linux-amd64.tar.gz"
       },
       "linux_arm64": {
         "file": "graball-linux-arm64.tar.gz",
-        "sha256": "8ac9583838d81e4f2e65c3bc83f5d9d9acb69b0b22aa11fc224180d15aeb461f",
-        "size_bytes": 2963706,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.4.0/graball-linux-arm64.tar.gz"
+        "sha256": "cbc34c00c9b4687e944217557242e7f10dbd099c9f23dc350401a7d517f056e0",
+        "size_bytes": 2967235,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.5.5/graball-linux-arm64.tar.gz"
       },
       "macos_amd64": {
         "file": "graball-darwin-amd64.tar.gz",
-        "sha256": "4a63cb414b0c33950688a68e23aef4f45d4d70105aede3e6a29cd11fd73c2c9b",
-        "size_bytes": 3262366,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.4.0/graball-darwin-amd64.tar.gz"
+        "sha256": "9d740cd0d8d98afaede8d95ca68e33b2e143ac6984f3a25acaddd8a52c7e640b",
+        "size_bytes": 3269438,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.5.5/graball-darwin-amd64.tar.gz"
       },
       "macos_arm64": {
         "file": "graball-darwin-arm64.tar.gz",
-        "sha256": "5c2d5b6922a2435251dd064f5980b158aa39020df6daa9c6b08e94782b6c68fb",
-        "size_bytes": 3069327,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.4.0/graball-darwin-arm64.tar.gz"
+        "sha256": "7650e3d91e600b6039c4c0b2d39cc80a09fb028a6aa4ff8c5c5eebec70c4b568",
+        "size_bytes": 3074924,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.5.5/graball-darwin-arm64.tar.gz"
       },
       "windows": {
         "file": "graball-windows-amd64.zip",
-        "sha256": "415bea1ac07c1b646056ac45a22528d39f7a560e8753e0b9ff211d8f64d4fa42",
-        "size_bytes": 3475803,
-        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.4.0/graball-windows-amd64.zip"
+        "sha256": "14291932aac6b826450a51281474685d178959927e1d94e9ed76aedce3059497",
+        "size_bytes": 3453802,
+        "url": "https://github.com/Avishka-55/graball-website/releases/download/pc-v2.5.5/graball-windows-amd64.zip"
       }
     },
-    "published_at": "2026-11-23T08:46:57Z",
-    "tag": "pc-v2.4.0",
-    "version": "2.4.0"
+    "published_at": "2026-11-27T15:12:38Z",
+    "tag": "pc-v2.5.5",
+    "version": "2.5.5"
   },
-  "updated_at": "2026-11-27T07:53:43Z"
+  "updated_at": "2026-11-27T20:59:21Z"
 }
